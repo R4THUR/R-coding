@@ -1,0 +1,78 @@
+---
+title: "Linear Programming II"
+author: "Arthur WEHBE"
+date: "2024-05-09"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(lpSolve)
+
+# Define the target function and constraints for Question 1
+obj <- c(50, 58, 46, 62) 
+const <- matrix(c(4, 3.5, 4.6, 3.9,
+  2.1, 2.6, 3.5, 1.9,
+  15, 23, 18, 25,
+  8, 12.6, 9.7, 10.5,
+  -0.4, -0.4, 0.6, 0.6), nrow = 5, byrow = TRUE)
+rhs <- c(600, 500, 3600, 1700, 0)
+const_sign <- rep("<=", 5)
+
+# Solve the linear programming problem for Question 1
+lp <- lp(direction = "max", 
+         objective.in = obj, 
+         const.mat = const, 
+         const.dir = const_sign, 
+         const.rhs = rhs) 
+
+sol <- lp["solution"]
+optimal_solution <- sol[1:4] 
+optimal_objective <- lp$objval 
+
+cat("Optimal solution:")
+print(optimal_solution)
+
+cat("Optimal objective value:")
+print(optimal_objective)
+
+
+```
+
+```{r}
+
+library(lpSolve)
+
+obj <- c(50, 58, 46, 62)
+const <- matrix(c(4, 3.5, 4.6, 3.9,
+2.1, 2.6, 3.5, 1.9,
+15, 23, 18, 25,
+8, 12.6, 9.7, 10.5,
+-0.4,-0.4,+0.6,+0.6), nrow = 5, byrow = TRUE)
+
+rhs <- c(600, 500, 3600, 1700,0)
+const_sign <- rep("<=", 5)
+
+lp <- lp(direction = "max",
+objective.in = obj,
+const.mat = const,
+const.dir = const_sign,
+const.rhs = rhs,
+int.vec = 1:4)
+
+sol <- lp["solution"]
+optimal_solution <- sol[1:5]
+optimal_objective <- lp$objval
+
+cat("Optimal solution:")
+print(optimal_solution)
+
+cat("Optimal objective value:")
+print(optimal_objective)
+```
+
+
+
